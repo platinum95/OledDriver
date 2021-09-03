@@ -108,8 +108,8 @@ begin
     #8;
     r_data = 8'h04;
     #8;
-    r_data = 8'h05;
-    #8;
+    //r_data = 8'h05;
+    //#8;
     
     r_dataWrEn = 1'b0;
     `assert( w_bufferFull, 1'b1 );
@@ -133,10 +133,10 @@ begin
     `assert( r_spiReaderData, 8'h04 );
     `assert( w_bufferFull, 1'b0 );
     //`assert( w_CS, 1'b0 );
-    `waitForPosEdge( w_CS );
-    `assert( r_spiReaderCount, 7 );
-    `assert( r_spiReaderData, 8'h05 );
-    `assert( w_bufferFull, 1'b0 );
+   // `waitForPosEdge( w_CS );
+   // `assert( r_spiReaderCount, 7 );
+   // `assert( r_spiReaderData, 8'h05 );
+   // `assert( w_bufferFull, 1'b0 );
     //`assert( w_CS, 1'b0 );
     wait( w_CS == 1'b1 );
     

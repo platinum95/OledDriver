@@ -31,33 +31,18 @@ assign w_nextWriteIndex = ( r_writeIndex == DEPTH - 1 ) ? ( 0 ) : ( r_writeIndex
 wire[ p_INDEX_WIDTH:0 ] w_nextReadIndex;
 assign w_nextReadIndex = ( r_readIndex == DEPTH - 1 ) ? ( 0 ) : ( r_readIndex + 1 );
 
-
-reg[ WIDTH-1:0 ] o_rdData_nxt = 0;
-
+// Asynchronous output
 always @(*)
 begin
     if( i_wrEn && i_rdEn && o_empty )
     begin
         // Special case for when we're reading & writing at the same time on an empty buffer:
         // just read-out the write-in data
-        o_rdData_nxt <= i_wrData;
+        o_rdData = i_wrData;
     end
     else
     begin
-        o_rdData_nxt <= r_data[ r_readIndex ];
-    end
-end
-
-// Synmchronous Output
-always @( posedge i_clk, negedge i_rst )
-begin
-    if ( ~i_rst )
-    begin
-        o_rdData <= 0;
-    end
-    else
-    begin
-        o_rdData <= o_rdData_nxt;
+        o_rdData = r_data[ r_readIndex ];
     end
 end
 
