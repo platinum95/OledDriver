@@ -21,7 +21,7 @@ begin
     #1;
     forever
     begin
-        #8;
+        #4;
         clk = ~clk;
     end
 end
@@ -46,7 +46,7 @@ BufferedSpiDriver #( .BUFFER_SIZE( 4 ) ) m_bufferedSpiDriver(
 
 wire w_spiDataClk;
 assign w_spiDataClk = w_SCLK && !w_CS;
-reg[ 3:0 ] r_spiReaderCount = 0;
+reg[ 2:0 ] r_spiReaderCount = 7;
 reg[ 7:0 ] r_spiReaderData = 0;
 
 always @( posedge w_spiDataClk )
@@ -54,7 +54,7 @@ begin
     if ( !w_CS )
     begin
         r_spiReaderData[ r_spiReaderCount ] <= w_SDIN;
-        r_spiReaderCount <= r_spiReaderCount + 1;
+        r_spiReaderCount <= r_spiReaderCount - 1;
     end
 end
 
@@ -65,10 +65,10 @@ begin
     // Test single entry
     r_data = 8'h00;
     r_dataWrEn = 1'b1;
-    #8;
+    #4;
     r_dataWrEn = 1'b0;
     `waitForPosEdge( w_CS );
-    r_spiReaderCount = 0;
+    r_spiReaderCount = 7;
     `assert( r_spiReaderData, 8'h00 );
     `assert( w_bufferFull, 1'b0 );
     
@@ -80,63 +80,64 @@ begin
     // Test 2 entries
     r_data = 8'h01;
     r_dataWrEn = 1'b1;
-    #16
+    #8
     r_data = 8'h02;
-    #16;
+    #8;
     r_dataWrEn = 1'b0;
     `assert( w_bufferFull, 1'b0 );
-    wait( r_spiReaderCount == 8 );
-    r_spiReaderCount = 0;
+    `waitForPosEdge( w_CS );
+    `assert( r_spiReaderCount, 7 );
     `assert( r_spiReaderData, 8'h01 );
     `assert( w_bufferFull, 1'b0 );
    // `assert( w_CS, 1'b0 );
-    wait( r_spiReaderCount == 8 );
-    r_spiReaderCount = 0;
+    `waitForPosEdge( w_CS );
+    `assert( r_spiReaderCount, 7 );
     `assert( r_spiReaderData, 8'h02 );
     `assert( w_bufferFull, 1'b0 );
     wait( w_CS == 1'b1 );
     
     `waitForNegEdge( clk );
     
-    // Test 5 entries (should fill out the FIFO of size 4)
+    // Test 6 entries (should fill out the FIFO of size 4)
     r_data = 8'h01;
     r_dataWrEn = 1'b1;
-    #16
+    #8
     r_data = 8'h02;
-    #16
+    #8
     r_data = 8'h03;
-    #16;
+    #8;
     r_data = 8'h04;
-    #16;
+    #8;
     r_data = 8'h05;
-    #16;
+    #8;
     
     r_dataWrEn = 1'b0;
     `assert( w_bufferFull, 1'b1 );
-    wait( r_spiReaderCount == 8 );
-    r_spiReaderCount = 0;
+    `waitForPosEdge( w_CS );
+    `assert( r_spiReaderCount, 7 );
     `assert( r_spiReaderData, 8'h01 );
     `assert( w_bufferFull, 1'b0 );
     //`assert( w_CS, 1'b0 );
-    wait( r_spiReaderCount == 8 );
-    r_spiReaderCount = 0;
+    `waitForPosEdge( w_CS );
+    `assert( r_spiReaderCount, 7 );
     `assert( r_spiReaderData, 8'h02 );
     `assert( w_bufferFull, 1'b0 );
     //`assert( w_CS, 1'b0 );
-    wait( r_spiReaderCount == 8 );
-    r_spiReaderCount = 0;
+    `waitForPosEdge( w_CS );
+    `assert( r_spiReaderCount, 7 );
     `assert( r_spiReaderData, 8'h03 );
     `assert( w_bufferFull, 1'b0 );
     //`assert( w_CS, 1'b0 );
-    wait( r_spiReaderCount == 8 );
-    r_spiReaderCount = 0;
+    `waitForPosEdge( w_CS );
+    `assert( r_spiReaderCount, 7 );
     `assert( r_spiReaderData, 8'h04 );
     `assert( w_bufferFull, 1'b0 );
     //`assert( w_CS, 1'b0 );
-    wait( r_spiReaderCount == 8 );
-    r_spiReaderCount = 0;
+    `waitForPosEdge( w_CS );
+    `assert( r_spiReaderCount, 7 );
     `assert( r_spiReaderData, 8'h05 );
     `assert( w_bufferFull, 1'b0 );
+    //`assert( w_CS, 1'b0 );
     wait( w_CS == 1'b1 );
     
     $finish;
