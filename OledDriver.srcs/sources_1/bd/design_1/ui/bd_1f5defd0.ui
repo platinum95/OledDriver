@@ -1,0 +1,25 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"1.0",
+   "Default View_TopLeft":"-780,-340",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace port port-id_sysclk -pg 1 -lvl 0 -x 0 -y 50 -defaultsOSRD
+preplace port port-id_BTN0 -pg 1 -lvl 0 -x 0 -y 70 -defaultsOSRD
+preplace port port-id_LED0 -pg 1 -lvl 2 -x 300 -y 90 -defaultsOSRD
+preplace port port-id_LED1 -pg 1 -lvl 2 -x 300 -y 70 -defaultsOSRD
+preplace port port-id_BTN1 -pg 1 -lvl 0 -x 0 -y 90 -defaultsOSRD
+preplace portBus ja -pg 1 -lvl 2 -x 300 -y 50 -defaultsOSRD
+preplace inst OledProject_0 -pg 1 -lvl 1 -x 150 -y 70 -defaultsOSRD
+preplace netloc OledProject_0_o_driverOff 1 1 1 NJ 90
+preplace netloc OledProject_0_o_driverReady 1 1 1 NJ 70
+preplace netloc OledProject_0_o_pmod 1 1 1 NJ 50
+preplace netloc i_clk_0_1 1 0 1 NJ 50
+preplace netloc i_driverEn_0_1 1 0 1 NJ 70
+preplace netloc i_rst_0_1 1 0 1 NJ 90
+levelinfo -pg 1 0 150 300
+pagesize -pg 1 -db -bbox -sgen -90 0 390 140
+"
+}
+0

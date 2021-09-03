@@ -1,0 +1,90 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x46351AD291433602",
+      "device": "xc7z020clg400-1",
+      "gen_directory": "../../../../OledDriver.gen/sources_1/bd/ClockMirrorer",
+      "name": "ClockMirrorer",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2021.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "ClockDivider_0": ""
+    },
+    "ports": {
+      "sysclk": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "ClockMirrorer_i_clk_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "ja": {
+        "direction": "O"
+      }
+    },
+    "components": {
+      "ClockDivider_0": {
+        "vlnv": "xilinx.com:module_ref:ClockDivider:1.0",
+        "xci_name": "ClockMirrorer_ClockDivider_0_0",
+        "xci_path": "ip/ClockMirrorer_ClockDivider_0_0/ClockMirrorer_ClockDivider_0_0.xci",
+        "inst_hier_path": "ClockDivider_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "ClockDivider",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "i_clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "CLK_DOMAIN": {
+                "value": "ClockMirrorer_i_clk_0",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "o_div": {
+            "direction": "O"
+          }
+        }
+      }
+    },
+    "nets": {
+      "ClockDivider_0_o_div": {
+        "ports": [
+          "ClockDivider_0/o_div",
+          "ja"
+        ]
+      },
+      "i_clk_0_1": {
+        "ports": [
+          "sysclk",
+          "ClockDivider_0/i_clk"
+        ]
+      }
+    }
+  }
+}

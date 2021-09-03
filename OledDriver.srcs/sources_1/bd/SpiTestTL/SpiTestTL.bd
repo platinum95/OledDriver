@@ -1,0 +1,128 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x2C8B1570BA9C6A61",
+      "device": "xc7z020clg400-1",
+      "gen_directory": "../../../../OledDriver.gen/sources_1/bd/SpiTestTL",
+      "name": "SpiTestTL",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2021.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "SpiTestWrapper_0": ""
+    },
+    "ports": {
+      "ja": {
+        "direction": "O",
+        "left": "7",
+        "right": "0"
+      },
+      "sysclk": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "ASSOCIATED_RESET": {
+            "value": "BTN1"
+          },
+          "CLK_DOMAIN": {
+            "value": "SpiTestTL_i_clk_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "125000000"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "BTN1": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
+      }
+    },
+    "components": {
+      "SpiTestWrapper_0": {
+        "vlnv": "xilinx.com:module_ref:SpiTestWrapper:1.0",
+        "xci_name": "SpiTestTL_SpiTestWrapper_0_0",
+        "xci_path": "ip/SpiTestTL_SpiTestWrapper_0_0/SpiTestTL_SpiTestWrapper_0_0.xci",
+        "inst_hier_path": "SpiTestWrapper_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "SpiTestWrapper",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "i_clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "i_rst",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "125000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "SpiTestTL_i_clk_0",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "i_rst": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "o_pmod": {
+            "direction": "O",
+            "left": "7",
+            "right": "0"
+          }
+        }
+      }
+    },
+    "nets": {
+      "SpiTestWrapper_0_o_pmod": {
+        "ports": [
+          "SpiTestWrapper_0/o_pmod",
+          "ja"
+        ]
+      },
+      "i_clk_0_1": {
+        "ports": [
+          "sysclk",
+          "SpiTestWrapper_0/i_clk"
+        ]
+      },
+      "i_rst_0_1": {
+        "ports": [
+          "BTN1",
+          "SpiTestWrapper_0/i_rst"
+        ]
+      }
+    }
+  }
+}

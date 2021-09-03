@@ -1,0 +1,19 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"1.0",
+   "Default View_TopLeft":"-810,-410",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace port port-id_sysclk -pg 1 -lvl 0 -x -10 -y -10 -defaultsOSRD
+preplace port port-id_BTN1 -pg 1 -lvl 0 -x -10 -y 10 -defaultsOSRD
+preplace portBus ja -pg 1 -lvl 2 -x 250 -y 0 -defaultsOSRD
+preplace inst SpiTestWrapper_0 -pg 1 -lvl 1 -x 120 -y 0 -defaultsOSRD
+preplace netloc SpiTestWrapper_0_o_pmod 1 1 1 N 0
+preplace netloc i_clk_0_1 1 0 1 N -10
+preplace netloc i_rst_0_1 1 0 1 N 10
+levelinfo -pg 1 -10 120 250
+pagesize -pg 1 -db -bbox -sgen -100 -60 340 120
+"
+}
+
