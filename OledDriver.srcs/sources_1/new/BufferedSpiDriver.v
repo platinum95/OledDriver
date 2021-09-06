@@ -8,7 +8,8 @@ module BufferedSpiDriver(
     output wire o_SCLK,
     output wire o_SDIN,
     output wire o_CS,
-    output wire o_bufferFull
+    output wire o_bufferFull,
+    output wire o_spiIdle
 );
 
 // Buffer size in bytes
@@ -48,5 +49,7 @@ SpiDriver m_spiDriver(
 
 assign w_fifoDataEn = ( i_dataWrEn && !o_bufferFull );
 assign w_fifoReadAndSpiEn = ( w_spiReady && !w_fifoEmpty );
+
+assign o_spiIdle = w_fifoEmpty && !i_dataWrEn && w_spiReady;
 
 endmodule

@@ -39,7 +39,7 @@ initial
 begin
     #1;
     forever begin
-        #8
+        #4;
         r_sysclk = ~r_sysclk;
     end
 end
@@ -82,7 +82,7 @@ reg r_initGuard = 1'b0;
 always @( posedge w_CS )
 begin
     r_initGuard <= 1'b1;
-    if ( r_initGuard )
+    if ( r_initGuard && r_initDataCounter < 23 )
     begin
         case( r_initDataCounter )
             0:  begin `assert( r_spiReaderData, 8'hAE ) end // Set display OFF
@@ -121,21 +121,21 @@ begin
 
     // Enable driver
     r_en = 1'b1;
-    #16;
-    r_en = 1'b0;
-    
-    // TODO - wait for init sequence
+    #8;
+   
+    wait( r_initDataCounter == 23 );
 
-    // TODO - wait for ready
+    wait( w_driverReady == 1'b1 );
 
     r_data = 8'b10010100;
     r_dataEn = 1'b1;
-    #16;
+    #8;
     r_dataEn = 1'b0;
+    #8;
     
-    #100000;
-    // TODO - wait for data
-    //$finish;
+    r_en = 1'b0;
+    wait( w_driverReady == 1'b0 );
+    $finish;
 end
 
 

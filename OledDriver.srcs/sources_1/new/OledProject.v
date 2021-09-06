@@ -29,20 +29,15 @@ module OledProject(
     output wire o_driverOff
 );
 
-wire w_driverEn;
 reg r_dataEn = 0;
 reg[ 7:0 ] r_data = 0;
-
-assign w_driverEn = i_driverEn & o_driverOff;
-
-//assign o_driverReady = i_driverEn;
 
 wire w_rstInverted;
 assign w_rstInverted = ~i_rst;
 
 OledDriver m_oledDriver (
     .i_clk( i_clk ),
-    .i_en( w_driverEn ),
+    .i_en( i_driverEn ),
     .i_rst( w_rstInverted ),
     .i_dataEn( r_dataEn ),
     .i_data( r_data ),
