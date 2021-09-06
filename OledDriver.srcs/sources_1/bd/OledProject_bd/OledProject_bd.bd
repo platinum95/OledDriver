@@ -1,0 +1,165 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x3B0F0E2260D39819",
+      "device": "xc7z020clg400-1",
+      "gen_directory": "../../../../OledDriver.gen/sources_1/bd/OledProject_bd",
+      "name": "OledProject_bd",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2021.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "OledProject_0": ""
+    },
+    "ports": {
+      "sysclk": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "ASSOCIATED_RESET": {
+            "value": "BTN1",
+            "value_src": "default"
+          },
+          "CLK_DOMAIN": {
+            "value": "OledProject_bd_i_clk_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "125000000"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "SW0": {
+        "direction": "I"
+      },
+      "BTN1": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
+      },
+      "ja": {
+        "direction": "O",
+        "left": "7",
+        "right": "0"
+      },
+      "LED1": {
+        "direction": "O"
+      },
+      "LED0": {
+        "direction": "O"
+      }
+    },
+    "components": {
+      "OledProject_0": {
+        "vlnv": "xilinx.com:module_ref:OledProject:1.0",
+        "xci_name": "OledProject_bd_OledProject_0_0",
+        "xci_path": "ip/OledProject_bd_OledProject_0_0/OledProject_bd_OledProject_0_0.xci",
+        "inst_hier_path": "OledProject_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "OledProject",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "i_clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "i_rst",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "125000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "OledProject_bd_i_clk_0",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "i_driverEn": {
+            "direction": "I"
+          },
+          "i_rst": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "o_pmod": {
+            "direction": "O",
+            "left": "7",
+            "right": "0"
+          },
+          "o_driverReady": {
+            "direction": "O"
+          },
+          "o_driverOff": {
+            "direction": "O"
+          }
+        }
+      }
+    },
+    "nets": {
+      "OledProject_0_o_driverOff": {
+        "ports": [
+          "OledProject_0/o_driverOff",
+          "LED0"
+        ]
+      },
+      "OledProject_0_o_driverReady": {
+        "ports": [
+          "OledProject_0/o_driverReady",
+          "LED1"
+        ]
+      },
+      "OledProject_0_o_pmod": {
+        "ports": [
+          "OledProject_0/o_pmod",
+          "ja"
+        ]
+      },
+      "i_clk_0_1": {
+        "ports": [
+          "sysclk",
+          "OledProject_0/i_clk"
+        ]
+      },
+      "i_driverEn_0_1": {
+        "ports": [
+          "SW0",
+          "OledProject_0/i_driverEn"
+        ]
+      },
+      "i_rst_0_1": {
+        "ports": [
+          "BTN1",
+          "OledProject_0/i_rst"
+        ]
+      }
+    }
+  }
+}
