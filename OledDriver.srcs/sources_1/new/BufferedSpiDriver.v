@@ -16,9 +16,11 @@ module BufferedSpiDriver(
 parameter BUFFER_SIZE = 64;
 
 // Signals for FIFO
-wire w_fifoDataEn;
-wire w_fifoReadAndSpiEn;
+wire w_fifoWrEn;
 wire w_fifoEmpty;
+
+reg r_fifoReadEn = 1'b0;
+reg r_spiWriteEn = 1'b0;
 
 wire[ 7:0 ] w_fifoDataRead;
 
@@ -28,9 +30,9 @@ wire w_spiReady;
 PetesFifo #( .DEPTH( BUFFER_SIZE ) ) m_fifo(
     .i_clk( i_clk ),
     .i_rst( i_rst ),
-    .i_wrEn( w_fifoDataEn ),//r_fifoDataWriteEn ),
+    .i_wrEn( w_fifoWrEn ),
     .i_wrData( i_data ),
-    .i_rdEn( w_fifoReadAndSpiEn ),
+    .i_rdEn( r_fifoReadEn ),
     .o_rdData( w_fifoDataRead ),
     .o_empty( w_fifoEmpty ),
     .o_full( o_bufferFull )
@@ -39,7 +41,7 @@ PetesFifo #( .DEPTH( BUFFER_SIZE ) ) m_fifo(
 SpiDriver m_spiDriver(
     .i_clk( i_clk ),
     .i_rst( i_rst ),
-    .i_dataSetEn( w_fifoReadAndSpiEn ),
+    .i_dataSetEn( r_spiWriteEn ),
     .i_data( w_fifoDataRead ),
     .o_SCLK( o_SCLK ),
     .o_SDIN( o_SDIN ),
@@ -47,9 +49,53 @@ SpiDriver m_spiDriver(
     .o_ready( w_spiReady )
 );
 
-assign w_fifoDataEn = ( i_dataWrEn && !o_bufferFull );
-assign w_fifoReadAndSpiEn = ( w_spiReady && !w_fifoEmpty );
+assign w_fifoWrEn = ( i_dataWrEn && !o_bufferFull );
 
 assign o_spiIdle = w_fifoEmpty && !i_dataWrEn && w_spiReady;
+
+localparam[ 1:0 ]
+    IDLE = 0,
+    READ = 1,
+    WRITE = 2;
+
+reg[ 1:0 ] r_state = IDLE;
+reg[ 1:0 ] r_state_nxt = IDLE;
+
+always @( * )
+begin
+    r_state_nxt = IDLE;
+
+    if ( r_state == IDLE && !w_fifoEmpty && w_spiReady )
+    begin
+        r_state_nxt = READ;
+    end
+    else if ( r_state == READ )
+    begin
+        r_state_nxt = WRITE;
+    end
+    else if ( r_state == WRITE )
+    begin
+        r_state_nxt = IDLE;
+    end
+end
+
+always @( * )
+begin
+    r_fifoReadEn = ( r_state_nxt == READ ) ? 1'b1 : 1'b0;
+    r_spiWriteEn = ( r_state_nxt == WRITE ) ? 1'b1 : 1'b0;
+end
+
+
+always @( posedge i_clk, negedge i_rst )
+begin
+    if ( !i_rst )
+    begin
+        r_state <= IDLE;
+    end
+    else
+    begin
+        r_state <= r_state_nxt;
+    end
+end
 
 endmodule
