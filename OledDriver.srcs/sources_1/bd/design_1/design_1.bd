@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x78A2F5934CD90117",
+      "boundary_crc": "0x3B0F0E22DD1EDA2A",
       "device": "xc7z020clg400-1",
       "gen_directory": "../../../../OledDriver.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -22,7 +22,7 @@
           }
         }
       },
-      "BTN0": {
+      "SW0": {
         "direction": "I"
       },
       "ja": {
@@ -116,7 +116,7 @@
       },
       "i_driverEn_0_1": {
         "ports": [
-          "BTN0",
+          "SW0",
           "OledProject_0/i_driverEn"
         ]
       },
